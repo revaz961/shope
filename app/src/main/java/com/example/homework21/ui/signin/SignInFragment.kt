@@ -15,18 +15,18 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
-//    override fun start() {
+    //    override fun start() {
 //        init()
 //    }
-private val viewModel:SignInViewModel by viewModels()
-    private lateinit var binding:SignInFragmentBinding
+    private val viewModel: SignInViewModel by viewModels()
+    private lateinit var binding: SignInFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-            binding = SignInFragmentBinding.inflate(inflater,container,false)
-            init()
+        binding = SignInFragmentBinding.inflate(inflater, container, false)
+        init()
         return binding.root
     }
 
@@ -50,16 +50,43 @@ private val viewModel:SignInViewModel by viewModels()
                 binding.tilPassword.hintColor(R.color.text_color)
         }
 
+        binding.btnSignIn.root.text = getString(R.string.sign_in)
         binding.btnSignIn.root.setOnClickListener {
-            viewModel.login(binding.titEmail.text.toString(), binding.titPassword.text.toString())
+            if (validateEmail() && validatePassword())
+                viewModel.login(
+                    binding.titEmail.text.toString(),
+                    binding.titPassword.text.toString()
+                )
+        }
+    }
+
+    private fun validateEmail(): Boolean {
+        return if (binding.titEmail.text!!.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex())) {
+            binding.tilEmail.endIconDrawable =
+                requireContext().getDrawable(R.drawable.baseline_check_circle_24)
+            true
+        } else{
+            binding.tilEmail.endIconDrawable = null
+            false
+        }
+    }
+
+    private fun validatePassword(): Boolean {
+        return if (binding.titPassword.text!!.length > 8) {
+            binding.tilPassword.endIconDrawable =
+                requireContext().getDrawable(R.drawable.baseline_check_circle_24)
+            true
+        } else {
+            binding.tilPassword.endIconDrawable = null
+            false
         }
     }
 
     private fun observes() {
-        viewModel.loginLiveData.observe(this, {
-            d("userIs",it.toString())
+        viewModel.loginLiveData.observe(viewLifecycleOwner, {
+            d("userIs", it.toString())
         })
-        viewModel.registerLiveData.observe(this, {
+        viewModel.registerLiveData.observe(viewLifecycleOwner, {
 
         })
     }
