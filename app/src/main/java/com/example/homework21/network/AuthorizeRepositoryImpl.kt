@@ -4,18 +4,18 @@ import com.example.homework21.model.Login
 import com.example.homework21.model.Register
 import javax.inject.Inject
 
-class AuthorizeRepositoryImpl @Inject constructor(private val apiHelper: ApiHelper) :
+class AuthorizeRepositoryImpl @Inject constructor(private val apiService: ApiService) :
     AuthorizeRepository {
     override suspend fun login(email: String, password: String): ResultHandler<Login> {
-        try {
-            val response = apiHelper.login(email, password)
+        return try {
+            val response = apiService.login(email, password)
             val body = response.body()
-            return if (response.isSuccessful)
+            if (response.isSuccessful)
                 ResultHandler.Success(response.body()!!)
             else
                 ResultHandler.Error(response.body()!!, response.errorBody()!!.string())
         }catch (e:Exception){
-            return ResultHandler.Error(null,"some error")
+            ResultHandler.Error(null,"some error")
         }
     }
 
@@ -24,11 +24,15 @@ class AuthorizeRepositoryImpl @Inject constructor(private val apiHelper: ApiHelp
         password: String,
         fullName: String
     ): ResultHandler<Register> {
-        val response = apiHelper.register(email, password, fullName)
-        return if (response.isSuccessful)
-            ResultHandler.Success(response.body()!!)
-        else
-            ResultHandler.Error(response.body()!!, response.errorBody()!!.string())
+        return try{
+            val response = apiService.register(email, password, fullName)
+            return if (response.isSuccessful)
+                ResultHandler.Success(response.body()!!)
+            else
+                ResultHandler.Error(response.body()!!, response.errorBody()!!.string())
+        }catch(e:Exception){
+            ResultHandler.Error(null,"some error")
+        }
     }
 
 

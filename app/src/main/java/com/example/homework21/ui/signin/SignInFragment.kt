@@ -1,34 +1,26 @@
 package com.example.homework21.ui.signin
 
-import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log.d
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.homework21.R
 import com.example.homework21.databinding.SignInFragmentBinding
-import com.example.homework21.extension.hintColor
+import com.example.homework21.extension.setColorState
+import com.example.homework21.extension.setIconEnd
 import com.example.homework21.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInFragment : Fragment() {
-    //    override fun start() {
-//        init()
-//    }
-    private val viewModel: SignInViewModel by viewModels()
-    private lateinit var binding: SignInFragmentBinding
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = SignInFragmentBinding.inflate(inflater, container, false)
+class SignInFragment : BaseFragment<SignInFragmentBinding>(
+    SignInFragmentBinding::inflate
+) {
+    override fun start() {
         init()
-        return binding.root
     }
+
+    private val viewModel: SignInViewModel by viewModels()
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
     private fun init() {
         initView()
@@ -38,17 +30,44 @@ class SignInFragment : Fragment() {
     private fun initView() {
         binding.titEmail.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus)
-                binding.tilEmail.hintColor(R.color.text_hint)
+                binding.tilEmail.setColorState(R.color.text_hint)
             else
-                binding.tilEmail.hintColor(R.color.text_color)
+                binding.tilEmail.setColorState(R.color.text_color)
         }
+
+        binding.titEmail.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(validateEmail())
+                    binding.tilEmail.setIconEnd(R.drawable.baseline_check_circle_24)
+                else
+                    binding.tilEmail.endIconDrawable = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         binding.titPassword.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus)
-                binding.tilPassword.hintColor(R.color.text_hint)
+                binding.tilPassword.setColorState(R.color.text_hint)
             else
-                binding.tilPassword.hintColor(R.color.text_color)
+                binding.tilPassword.setColorState(R.color.text_color)
         }
+
+
+        binding.titPassword.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(validatePassword())
+                    binding.tilPassword.setIconEnd(R.drawable.baseline_check_circle_24)
+                else
+                    binding.tilPassword.endIconDrawable = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         binding.btnSignIn.root.text = getString(R.string.sign_in)
         binding.btnSignIn.root.setOnClickListener {
@@ -60,27 +79,9 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun validateEmail(): Boolean {
-        return if (binding.titEmail.text!!.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex())) {
-            binding.tilEmail.endIconDrawable =
-                requireContext().getDrawable(R.drawable.baseline_check_circle_24)
-            true
-        } else{
-            binding.tilEmail.endIconDrawable = null
-            false
-        }
-    }
+    private fun validateEmail() = binding.titEmail.text!!.matches(emailPattern.toRegex())
 
-    private fun validatePassword(): Boolean {
-        return if (binding.titPassword.text!!.length > 8) {
-            binding.tilPassword.endIconDrawable =
-                requireContext().getDrawable(R.drawable.baseline_check_circle_24)
-            true
-        } else {
-            binding.tilPassword.endIconDrawable = null
-            false
-        }
-    }
+    private fun validatePassword() = binding.titPassword.text!!.length > 8
 
     private fun observes() {
         viewModel.loginLiveData.observe(viewLifecycleOwner, {

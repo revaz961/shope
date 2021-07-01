@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homework21.model.Login
 import com.example.homework21.model.Register
+import com.example.homework21.network.AuthorizeRepository
 import com.example.homework21.network.AuthorizeRepositoryImpl
 import com.example.homework21.network.ResultHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val authRepo: AuthorizeRepositoryImpl) :
+class SignInViewModel @Inject constructor(private val authRepo: AuthorizeRepository) :
     ViewModel() {
 
     private val _loginLiveData = MutableLiveData<ResultHandler<Login>>()

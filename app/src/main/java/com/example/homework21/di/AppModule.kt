@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
     companion object {
-        private const val BASE_URL = "https://ktorhighsteaks.herokuapp.com/"
+        const val BASE_URL = "https://ktorhighsteaks.herokuapp.com/"
     }
 
     @Singleton
@@ -21,18 +21,11 @@ class AppModule {
     fun provideService() = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .build()
+        .build().create(ApiService::class.java)
+
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
-
-    @Provides
-    @Singleton
-    fun provideAuthorizeRepository(apiHelper: ApiHelperImpl): AuthorizeRepository =
-        AuthorizeRepositoryImpl(apiHelper)
+    fun provideAuthorizeRepository(apiService: ApiService): AuthorizeRepository =
+        AuthorizeRepositoryImpl(apiService)
 }

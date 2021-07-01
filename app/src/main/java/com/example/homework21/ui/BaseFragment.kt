@@ -8,27 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
+
+abstract class BaseFragment<VB : ViewBinding>(
     private val inflate: Inflate<VB>,
-    private val viewModelClass: Class<VM>,
-    private val isShared: Boolean = false
 ) : Fragment() {
 
     private var _binding: VB? = null
     val binding get() = _binding!!
-
-    protected val viewModel: VM by lazy {
-        if (isShared) {
-            ViewModelProvider(requireActivity()).get(
-                viewModelClass
-            )
-        } else {
-            ViewModelProvider(this).get(viewModelClass)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
