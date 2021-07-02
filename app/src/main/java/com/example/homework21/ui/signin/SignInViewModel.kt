@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.homework21.model.Login
 import com.example.homework21.model.Register
 import com.example.homework21.network.AuthorizeRepository
-import com.example.homework21.network.AuthorizeRepositoryImpl
 import com.example.homework21.network.ResultHandler
+import com.example.homework21.sessionpreferences.SessionSharedPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +16,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val authRepo: AuthorizeRepository) :
+class SignInViewModel @Inject constructor(
+    private val authRepo: AuthorizeRepository,
+    private val sessionInfo: SessionSharedPreferences
+) :
     ViewModel() {
 
     private val _loginLiveData = MutableLiveData<ResultHandler<Login>>()
@@ -28,7 +31,9 @@ class SignInViewModel @Inject constructor(private val authRepo: AuthorizeReposit
     fun login(email: String, password: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _loginLiveData.postValue(authRepo.login(email, password))
+                _loginLiveData.postValue(ResultHandler.Loading(true))
+                loginIn(email, password)
+                _loginLiveData.postValue(ResultHandler.Loading(false))
             }
         }
     }
@@ -36,8 +41,22 @@ class SignInViewModel @Inject constructor(private val authRepo: AuthorizeReposit
     fun register(email: String, password: String, fullName: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _registerLiveData.postValue(authRepo.register(email, password, fullName))
+                _registerLiveData.postValue(ResultHandler.Loading(true))
+                registerUser(email,password,fullName)
+                _registerLiveData.postValue(ResultHandler.Loading(false))
             }
         }
+    }
+
+    private suspend fun loginIn(email: String, password: String) {
+        _loginLiveData.postValue(authRepo.login(email, password))
+    }
+
+    private suspend fun registerUser(email: String, password: String, fullName: String) {
+        _registerLiveData.postValue(authRepo.register(email, password, fullName))
+    }
+
+    fun saveSession(inSession: Boolean) {
+        sessionInfo.saveSession(inSession)
     }
 }
