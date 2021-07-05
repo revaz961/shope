@@ -16,8 +16,8 @@ class AppModule {
         const val BASE_URL = "https://ktorhighsteaks.herokuapp.com/"
     }
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideService() = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())

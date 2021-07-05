@@ -1,4 +1,4 @@
-package com.example.homework21.sessionpreferences
+package com.example.homework21.user_data
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,6 +11,7 @@ import javax.inject.Singleton
 class SessionSharedPreferences @Inject constructor(@ApplicationContext private val context: Context) {
     companion object{
         private const val SESSION = "SESSION"
+        private const val TOKEN = "TOKEN"
     }
     private val sharedPreferences:SharedPreferences by lazy{
         context.getSharedPreferences(context.getString(R.string.session),Context.MODE_PRIVATE)
@@ -18,6 +19,10 @@ class SessionSharedPreferences @Inject constructor(@ApplicationContext private v
 
     fun saveSession(session: Boolean) {
         sharedPreferences.edit().putBoolean(SESSION, session).apply()
+    }
+
+    fun saveToken(token: String) {
+        sharedPreferences.edit().putString(TOKEN, token).apply()
     }
 
     fun hasSession() = sharedPreferences.getBoolean(SESSION, false)

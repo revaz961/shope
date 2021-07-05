@@ -1,15 +1,14 @@
-package com.example.homework21.ui.signin
+package com.example.homework21.ui.auth.sign_in
 
-import android.text.Editable
-import android.text.TextWatcher
+import android.app.Dialog
 import android.util.Log.d
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.homework21.R
+import com.example.homework21.databinding.ErrorDialogLayoutBinding
 import com.example.homework21.databinding.SignInFragmentBinding
-import com.example.homework21.extension.setColorState
-import com.example.homework21.extension.setIconEnd
-import com.example.homework21.extension.showIf
+import com.example.homework21.extension.*
 import com.example.homework21.network.ResultHandler
 import com.example.homework21.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,23 +17,36 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInFragment : BaseFragment<SignInFragmentBinding>(
     SignInFragmentBinding::inflate
 ) {
-    override fun start() {
-        init()
-    }
 
     private val viewModel: SignInViewModel by viewModels()
-    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
-    private fun init() {
+    override fun start() {
         initView()
         observes()
     }
 
+
     private fun initView() {
+        val email = requireArguments().getString("email","")
+        val password = requireArguments().getString("password","")
+        binding.titEmail.setText(email)
+        binding.titPassword.setText(password)
+
         binding.tilEmail.isEndIconVisible = false
         binding.tilPassword.isEndIconVisible = false
 
         binding.btnSignIn.root.text = getString(R.string.sign_in)
+
+        binding.tvSignUp.setSpannedString(
+            arrayOf(
+                getString(R.string.new_user),
+                getString(R.string.sign_up),
+                getString(R.string.here)
+            ),
+            arrayOf(R.color.text_color, R.color.text_hint, R.color.text_color)
+        )
+
+        binding.tvSignUp.isClickable = true
 
         setListeners()
     }
@@ -49,7 +61,7 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(
 
 
         binding.titEmail.doOnTextChanged { text, start, before, count ->
-            binding.tilEmail.isEndIconVisible = validateEmail()
+            binding.tilEmail.isEndIconVisible = binding.titEmail.text.toString().isEmail()
         }
 
         binding.titPassword.setOnFocusChangeListener { v, hasFocus ->
@@ -65,28 +77,38 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(
         }
 
         binding.btnSignIn.root.setOnClickListener {
-            if (validateEmail() && validatePassword())
+            val email = binding.titEmail.text.toString()
+            if (email.isEmail() && validatePassword())
                 viewModel.login(
-                    binding.titEmail.text.toString(),
-                    binding.titPassword.text.toString()
+                    email,
+                    binding.titPassword.text.toString(),
+                    binding.cbRemember.isChecked
                 )
+        }
+
+        binding.tvSignUp.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
         }
     }
 
-
-    private fun validateEmail() = binding.titEmail.text!!.matches(emailPattern.toRegex())
-
-    private fun validatePassword() = binding.titPassword.text!!.length > 8
+    private fun validatePassword() = binding.titPassword.text!!.length >= 6
 
     private fun observes() {
         viewModel.loginLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is ResultHandler.Success -> {
-                    d("success", it.toString())
-                    if (binding.cbRemember.isChecked)
-                        viewModel.saveSession(true)
+
                 }
-                is ResultHandler.Error -> d("success", it.toString())
+                is ResultHandler.Error -> {
+                    val dialog = Dialog(requireContext())
+                    val dialogBinding = ErrorDialogLayoutBinding.inflate(layoutInflater)
+                    dialog.init(dialogBinding.root)
+                    dialogBinding.tvDescription.text = it.message
+                    dialogBinding.btnClose.setOnClickListener {
+                        dialog.cancel()
+                    }
+                    dialog.show()
+                }
                 is ResultHandler.Loading -> binding.progress.showIf(it.loading)
             }
         })

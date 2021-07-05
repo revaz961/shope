@@ -7,7 +7,28 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.homework21.ui.signin.SignInFragment"
+        android:name="com.example.homework21.ui.auth.sign_in.SignInFragment"
         android:label="sign_in_fragment"
-        tools:layout="@layout/sign_in_fragment" />
+        tools:layout="@layout/sign_in_fragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.homework21.ui.auth.sign_up.SignUpFragment"
+        android:label="sign_up_fragment"
+        tools:layout="@layout/sign_up_fragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.homework21.ui.feed.FeedFragment"
+        android:label="feed_fragment"
+        tools:layout="@layout/feed_fragment" />
 </navigation>

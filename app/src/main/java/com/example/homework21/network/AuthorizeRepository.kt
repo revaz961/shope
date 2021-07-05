@@ -4,7 +4,7 @@ import com.example.homework21.model.Login
 import com.example.homework21.model.Register
 
 interface AuthorizeRepository {
-    suspend fun login(email: String, password: String): ResultHandler<Login>
+    suspend fun login(email: String, password: String,rememberMe:Boolean): ResultHandler<Login>
 
     suspend fun register(
         email: String,

@@ -1,8 +1,11 @@
 package com.example.homework21.extension
 
-import android.content.res.ColorStateList
 import android.os.Build
-import com.example.homework21.R
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputLayout
 
 fun TextInputLayout.setColorState(colorId: Int) {
@@ -11,6 +14,19 @@ fun TextInputLayout.setColorState(colorId: Int) {
     }
 }
 
-fun TextInputLayout.setIconEnd(id: Int) {
-    endIconDrawable = context.getDrawable(id)
+
+fun TextView.setSpannedString(strings: Array<String>, colors: Array<Int>) {
+    val spannableString = SpannableString(strings.joinToString(""))
+    var startIndex = 0
+    for (i in strings.indices) {
+        spannableString.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(context, colors[i])
+            ),
+            startIndex, startIndex + strings[i].length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        startIndex += strings[i].length
+    }
+    text = spannableString
 }
