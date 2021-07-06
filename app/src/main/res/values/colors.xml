@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text_hint">#FD7E77</color>
     <color name="text_color">#515151</color>
+    <color name="text_post">#515151</color>
+    <color name="text_post_light">#B7B7B7</color>
 </resources>

@@ -23,12 +23,13 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(
     override fun start() {
         initView()
         observes()
+        setListeners()
     }
 
 
     private fun initView() {
-        val email = requireArguments().getString("email","")
-        val password = requireArguments().getString("password","")
+        val email = arguments?.getString("email","")
+        val password = arguments?.getString("password","")
         binding.titEmail.setText(email)
         binding.titPassword.setText(password)
 
@@ -47,8 +48,6 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(
         )
 
         binding.tvSignUp.isClickable = true
-
-        setListeners()
     }
 
     private fun setListeners() {
@@ -97,9 +96,11 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(
         viewModel.loginLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is ResultHandler.Success -> {
-
+                    findNavController().navigate(R.id.action_signInFragment_to_feedFragment)
+                    binding.progress.hide()
                 }
                 is ResultHandler.Error -> {
+                    binding.progress.hide()
                     val dialog = Dialog(requireContext())
                     val dialogBinding = ErrorDialogLayoutBinding.inflate(layoutInflater)
                     dialog.init(dialogBinding.root)

@@ -4,5 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class Login(
     @SerializedName("userId")
-    val user_id: Int, val token: String?
+    val user_id: Int,
+    val token: String?
 )

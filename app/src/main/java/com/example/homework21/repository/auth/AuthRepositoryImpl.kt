@@ -1,17 +1,19 @@
-package com.example.homework21.network
+package com.example.homework21.repository.auth
 
-import com.example.homework21.model.Error
+import com.example.homework21.model.ErrorResult
 import com.example.homework21.model.Login
 import com.example.homework21.model.Register
-import com.example.homework21.user_data.SessionSharedPreferences
+import com.example.homework21.network.ApiService
+import com.example.homework21.network.ResultHandler
+import com.example.homework21.user_data.SessionData
 import com.google.gson.Gson
 import javax.inject.Inject
 
-class AuthorizeRepositoryImpl @Inject constructor(
+class AuthRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val sessionInfo: SessionSharedPreferences
+    private val sessionInfo: SessionData
 ) :
-    AuthorizeRepository {
+    AuthRepository {
     override suspend fun login(
         email: String,
         password: String,
@@ -23,13 +25,13 @@ class AuthorizeRepositoryImpl @Inject constructor(
             return if (response.isSuccessful) {
                 if(rememberMe){
                     sessionInfo.saveSession(true)
-                    sessionInfo.saveToken(body!!.token!!)
+                    sessionInfo.saveToken(body?.token!!)
                 }
-                ResultHandler.Success(body!!)
+                ResultHandler.Success(body)
             }
             else {
-                val errorModel = Gson().fromJson(response.errorBody()!!.string(), Error::class.java)
-                ResultHandler.Error(body, errorModel.error)
+                val errorResult = Gson().fromJson(response.errorBody()!!.string(), ErrorResult::class.java)
+                ResultHandler.Error(body, errorResult?.error ?: "")
             }
         } catch (e: Exception) {
             ResultHandler.Error(null, e.message.toString())
@@ -45,10 +47,10 @@ class AuthorizeRepositoryImpl @Inject constructor(
             val response = apiService.register(email, password, fullName)
             val body = response.body()
             if (response.isSuccessful)
-                ResultHandler.Success(response.body()!!)
+                ResultHandler.Success(body)
             else {
-                val errorModel = Gson().fromJson(response.errorBody()!!.string(), Error::class.java)
-                ResultHandler.Error(body, errorModel.error)
+                val errorResult = Gson().fromJson(response.errorBody()!!.string(), ErrorResult::class.java)
+                ResultHandler.Error(body, errorResult?.error ?: "")
             }
         } catch (e: Exception) {
             ResultHandler.Error(null, e.message.toString())

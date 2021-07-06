@@ -1,6 +1,11 @@
 package com.example.homework21.di
 
 import com.example.homework21.network.*
+import com.example.homework21.repository.auth.AuthRepository
+import com.example.homework21.repository.auth.AuthRepositoryImpl
+import com.example.homework21.repository.post.PostRepository
+import com.example.homework21.repository.post.PostRepositoryImpl
+import com.example.homework21.user_data.SessionData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +31,11 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideAuthorizeRepository(apiService: ApiService): AuthorizeRepository =
-        AuthorizeRepositoryImpl(apiService)
+    fun provideAuthorizeRepository(apiService: ApiService,sessionData:SessionData): AuthRepository =
+        AuthRepositoryImpl(apiService,sessionData)
+
+    @Provides
+    @Singleton
+    fun providePostRepository(apiService: ApiService): PostRepository =
+        PostRepositoryImpl(apiService)
 }

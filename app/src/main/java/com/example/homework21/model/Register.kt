@@ -1,3 +1,3 @@
 package com.example.homework21.model
 
-data class Register(val OK: String?, val registered: Boolean?)
+data class Register(val OK: Boolean?, val registered: Boolean?)

@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SessionSharedPreferences @Inject constructor(@ApplicationContext private val context: Context) {
+class SessionData @Inject constructor(@ApplicationContext private val context: Context) {
     companion object{
         private const val SESSION = "SESSION"
         private const val TOKEN = "TOKEN"

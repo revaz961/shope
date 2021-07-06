@@ -96,10 +96,12 @@ class SignUpFragment : BaseFragment<SignUpFragmentBinding>(SignUpFragmentBinding
         binding.btnSignUp.root.setOnClickListener {
             val email = binding.titEmail.text.toString()
             val fullName = binding.titFullName.text.toString()
+            val password = binding.titPassword.text.toString()
+
             if (email.isEmail() && fullName.isNotBlank() && validatePassword())
                 viewModel.register(
                     email,
-                    binding.titPassword.text.toString(),
+                    password,
                     fullName
                 )
         }
@@ -117,6 +119,7 @@ class SignUpFragment : BaseFragment<SignUpFragmentBinding>(SignUpFragmentBinding
         viewModel.registerLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is ResultHandler.Success -> {
+                    binding.progress.hide()
                     val email = binding.titEmail.text.toString()
                     val password = binding.titPassword.text.toString()
                     findNavController().navigate(
@@ -125,6 +128,7 @@ class SignUpFragment : BaseFragment<SignUpFragmentBinding>(SignUpFragmentBinding
                     )
                 }
                 is ResultHandler.Error -> {
+                    binding.progress.hide()
                     val dialog = Dialog(requireContext())
                     val dialogBinding = ErrorDialogLayoutBinding.inflate(layoutInflater)
                     dialog.init(dialogBinding.root)
