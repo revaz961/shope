@@ -1,32 +1,46 @@
 package com.example.homework21.ui.feed
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.homework21.R
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.homework21.adapter.PostAdapter
+import com.example.homework21.databinding.FeedFragmentBinding
+import com.example.homework21.network.ResultHandler
+import com.example.homework21.ui.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class FeedFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = FeedFragment()
+@AndroidEntryPoint
+class FeedFragment : BaseFragment<FeedFragmentBinding>(FeedFragmentBinding::inflate) {
+
+    private val viewModel:FeedViewModel by viewModels()
+    private lateinit var adapter:PostAdapter
+
+    override fun start() {
+        observes()
+        initRecycler()
     }
 
-    private lateinit var viewModel: FeedViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.feed_fragment, container, false)
+    private fun initRecycler(){
+        adapter = PostAdapter()
+        binding.rvPost.adapter = adapter
+        binding.rvPost.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.getPost()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun observes(){
+        viewModel.liveData.observe(viewLifecycleOwner,{
+            when(it){
+                is ResultHandler.Success ->{
+                    adapter.setItem(it.data!!)
+                }
+                is ResultHandler.Error ->{
+//                    adapter.setItem(it.data!!)
+                }
+                is ResultHandler.Loading ->{
+//                    adapter.setItem(it.data!!)
+                }
+            }
+        })
     }
 
 }

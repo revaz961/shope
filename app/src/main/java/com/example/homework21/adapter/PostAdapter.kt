@@ -7,6 +7,12 @@ import com.example.homework21.databinding.PostItemBinding
 import com.example.homework21.model.Post
 
 class PostAdapter : BaseAdapter<Post>() {
+
+    fun setItem(list:List<Post>){
+        items.addAll(list)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
