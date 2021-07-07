@@ -39,6 +39,9 @@ android {
 
 dependencies {
     def nav_version = "2.3.5"
+    def lottieVersion = "3.7.0"
+
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")

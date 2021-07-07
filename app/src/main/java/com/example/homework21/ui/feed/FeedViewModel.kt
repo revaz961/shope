@@ -21,6 +21,7 @@ class FeedViewModel @Inject constructor(private val postRepo:PostRepositoryImpl)
     fun getPost(){
         viewModelScope.launch {
             withContext(Dispatchers.IO){
+                _liveData.postValue(ResultHandler.Loading(true))
                 getPosts()
             }
         }

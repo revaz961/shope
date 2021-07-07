@@ -34,6 +34,10 @@ class PostAdapter : BaseAdapter<Post>() {
             binding.tvTag.text = data.tags
             binding.tvDescription.text = data.description
             binding.tvPrice.text = "$ ${data.price}"
+
+            binding.vpPost.adapter = PostImagesAdapter().apply {
+                setItems(data.urls!!)
+            }
         }
 
     }

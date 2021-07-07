@@ -4,6 +4,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.homework21.adapter.PostAdapter
 import com.example.homework21.databinding.FeedFragmentBinding
+import com.example.homework21.extension.hide
+import com.example.homework21.extension.showIf
 import com.example.homework21.network.ResultHandler
 import com.example.homework21.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,13 +33,14 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>(FeedFragmentBinding::infl
         viewModel.liveData.observe(viewLifecycleOwner,{
             when(it){
                 is ResultHandler.Success ->{
+                    binding.progress.hide()
                     adapter.setItem(it.data!!)
                 }
                 is ResultHandler.Error ->{
-//                    adapter.setItem(it.data!!)
+                    binding.progress.hide()
                 }
                 is ResultHandler.Loading ->{
-//                    adapter.setItem(it.data!!)
+                    binding.progress.showIf(it.loading)
                 }
             }
         })

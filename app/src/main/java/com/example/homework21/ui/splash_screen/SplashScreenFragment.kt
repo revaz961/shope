@@ -1,11 +1,14 @@
 package com.example.homework21.ui.splash_screen
 
+import android.animation.Animator
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.homework21.R
 import com.example.homework21.databinding.SplashScreenFragmentBinding
 import com.example.homework21.ui.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashScreenFragment :
     BaseFragment<SplashScreenFragmentBinding>(SplashScreenFragmentBinding::inflate) {
 
@@ -13,11 +16,23 @@ class SplashScreenFragment :
 
     override fun start() {
 
-        if(viewModel.checkSession())
-            findNavController().navigate(R.id.action_splashScreenFragment_to_feedFragment)
-        else
-            findNavController().navigate(R.id.action_splashScreenFragment_to_signInFragment)
+        binding.lotAnimation.addAnimatorListener(object: Animator.AnimatorListener{
+            override fun onAnimationStart(animation: Animator?) {
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                if(viewModel.checkSession())
+                    findNavController().navigate(R.id.action_splashScreenFragment_to_feedFragment)
+                else
+                    findNavController().navigate(R.id.action_splashScreenFragment_to_signInFragment)
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+            }
+
+            override fun onAnimationRepeat(animation: Animator?) {
+            }
+
+        })
     }
-
-
 }
