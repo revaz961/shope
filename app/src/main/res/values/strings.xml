@@ -19,4 +19,8 @@
     <string name="close">close</string>
     <string name="my_feed">My Feed</string>
     <string name="learn_more">Learn More</string>
+    <string name="wall">Wall</string>
+    <string name="favorite">Favorite</string>
+    <string name="wallet">Wallet</string>
+    <string name="order">Order</string>
 </resources>

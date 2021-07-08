@@ -2,19 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/wallFragment"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="lkl" />
+        android:title="@string/wall" />
 
-    <item
+    <item android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_star_border_black_24dp"
-        android:title="lkl" />
+        android:title="@string/favorite" />
 
-    <item
+    <item android:id="@+id/walletFragment"
         android:icon="@drawable/ic_account_balance_wallet_black_24dp"
-        android:title="lkl" />
+        android:title="@string/wallet" />
 
-    <item
+    <item android:id="@+id/ordersFragment"
         android:icon="@drawable/ic_account_balance_wallet_black_24dp"
-        android:title="lkl" />
+        android:title="@string/order" />
 
 </menu>

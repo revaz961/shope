@@ -1,4 +1,4 @@
-package com.example.homework21.ui.feed
+package com.example.homework21.ui.bot_navigation.wall
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class FeedViewModel @Inject constructor(private val postRepo:PostRepositoryImpl) : ViewModel() {
+class WallViewModel @Inject constructor(private val postRepo:PostRepositoryImpl) : ViewModel() {
     private val _liveData = MutableLiveData<ResultHandler<List<Post>>>()
     val liveData:LiveData<ResultHandler<List<Post>>> = _liveData
 

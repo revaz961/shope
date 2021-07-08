@@ -31,7 +31,7 @@ class AuthRepositoryImpl @Inject constructor(
             }
             else {
                 val errorResult = Gson().fromJson(response.errorBody()!!.string(), ErrorResult::class.java)
-                ResultHandler.Error(body, errorResult?.error ?: "")
+                ResultHandler.Error(body, errorResult?.error ?: "something wrong")
             }
         } catch (e: Exception) {
             ResultHandler.Error(null, e.message.toString())
@@ -50,7 +50,7 @@ class AuthRepositoryImpl @Inject constructor(
                 ResultHandler.Success(body)
             else {
                 val errorResult = Gson().fromJson(response.errorBody()!!.string(), ErrorResult::class.java)
-                ResultHandler.Error(body, errorResult?.error ?: "")
+                ResultHandler.Error(body, errorResult?.error ?: "something wrong")
             }
         } catch (e: Exception) {
             ResultHandler.Error(null, e.message.toString())

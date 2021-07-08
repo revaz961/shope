@@ -22,7 +22,7 @@ class SplashScreenFragment :
 
             override fun onAnimationEnd(animation: Animator?) {
                 if(viewModel.checkSession())
-                    findNavController().navigate(R.id.action_splashScreenFragment_to_feedFragment)
+                    findNavController().navigate(R.id.action_splashScreenFragment_to_homeFragment)
                 else
                     findNavController().navigate(R.id.action_splashScreenFragment_to_signInFragment)
             }

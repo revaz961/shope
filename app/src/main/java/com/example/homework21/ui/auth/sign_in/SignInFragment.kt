@@ -96,7 +96,7 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(
         viewModel.loginLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is ResultHandler.Success -> {
-                    findNavController().navigate(R.id.action_signInFragment_to_feedFragment)
+                    findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                     binding.progress.hide()
                 }
                 is ResultHandler.Error -> {
