@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screen.profile.ProfileFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingEnd="37dp"
+    android:paddingStart="37dp"
+    android:paddingBottom="60dp">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/upload_profile_picture"
+    android:textSize="17sp"
+    android:layout_marginTop="120dp"
+    android:layout_gravity="center"
+    android:textColor="@color/text_hint"
+    android:textStyle="bold"
+    />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:tint="@color/text_post_light"
+        app:srcCompat="@drawable/ic_profile_circle_black_24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_photo"
+        android:textColor="@color/text_post"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_your_card"
+        android:textColor="@color/text_hint"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginTop="45dp"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCardNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/card_number"
+        android:textColorHint="@color/text_post"
+        android:layout_marginTop="35dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@color/text_post"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCardHolderName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/card_holder_name"
+        android:textColorHint="@color/text_post"
+        android:layout_marginTop="35dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editCardHolderName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@color/text_post"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilExpiryDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/card_holder_name"
+            android:textColorHint="@color/text_post"
+            android:layout_marginTop="35dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editExpiryDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/text_post"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSecurityCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/card_holder_name"
+            android:textColorHint="@color/text_post"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="30dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editSecurityCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/text_post"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/text_hint"
+        android:text="@string/add_location"
+        android:layout_marginTop="35dp"
+        android:textSize="17sp"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_your_address"
+        android:textColorHint="@color/text_post"
+        android:layout_marginTop="35dp"
+        app:endIconDrawable="@drawable/ic_place_black_24dp"
+        app:endIconTint="@color/text_hint"
+        app:endIconMode="custom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@color/text_post"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_marginTop="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/gradient_button"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFloorApartment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/floor_appartment"
+        android:textColorHint="@color/text_post"
+        android:layout_marginTop="35dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editFloorApartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@color/text_post"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_button"
+        android:text="@string/complete_profile"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        />
+
+</LinearLayout>
+</ScrollView>

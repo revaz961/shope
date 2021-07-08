@@ -23,4 +23,18 @@
     <string name="favorite">Favorite</string>
     <string name="wallet">Wallet</string>
     <string name="order">Order</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_post">My Posts</string>
+    <string name="about">About</string>
+    <string name="my_cart">My Cart</string>
+    <string name="log_out">Log Out</string>
+    <string name="upload_profile_picture">Upload Profile Picture</string>
+    <string name="choose_photo">Choose Photo</string>
+    <string name="add_your_card">Add your Card</string>
+    <string name="card_number">Card Number</string>
+    <string name="card_holder_name">Card Holder Name</string>
+    <string name="add_location">Add Location</string>
+    <string name="add_your_address">Add your Address</string>
+    <string name="floor_appartment">Floor/Appartment</string>
+    <string name="complete_profile">Complete Profile</string>
 </resources>

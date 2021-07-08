@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/wallFragment"
-        android:name="com.example.homework21.ui.bot_navigation.wall.WallFragment"
+        android:name="com.example.homework21.screen.bot_navigation.wall.WallFragment"
         android:label="wall_fragment"
         tools:layout="@layout/wall_fragment" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.homework21.ui.bot_navigation.favorite.FavoriteFragment"
+        android:name="com.example.homework21.screen.bot_navigation.favorite.FavoriteFragment"
         android:label="favorite_fragment"
         tools:layout="@layout/favorite_fragment" />
     <fragment
         android:id="@+id/walletFragment"
-        android:name="com.example.homework21.ui.bot_navigation.wallet.WalletFragment"
+        android:name="com.example.homework21.screen.bot_navigation.wallet.WalletFragment"
         android:label="wallet_fragment"
         tools:layout="@layout/wallet_fragment" />
     <fragment
         android:id="@+id/ordersFragment"
-        android:name="com.example.homework21.ui.bot_navigation.order.OrdersFragment"
+        android:name="com.example.homework21.screen.bot_navigation.order.OrdersFragment"
         android:label="orders_fragment"
         tools:layout="@layout/orders_fragment" />
 

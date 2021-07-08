@@ -7,7 +7,7 @@
     android:paddingStart="36dp"
     android:paddingEnd="36dp"
     android:scrollbars="none"
-    tools:context=".ui.auth.sign_in.SignInFragment">
+    tools:context=".screen.auth.sign_in.SignInFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

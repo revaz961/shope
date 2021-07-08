@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.bot_navigation.wall.WallFragment">
+    tools:context=".screen.bot_navigation.wall.WallFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPost"

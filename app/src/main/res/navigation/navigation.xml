@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.homework21.ui.auth.sign_in.SignInFragment"
+        android:name="com.example.homework21.screen.auth.sign_in.SignInFragment"
         android:label="sign_in_fragment"
         tools:layout="@layout/sign_in_fragment" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.homework21.ui.auth.sign_up.SignUpFragment"
+        android:name="com.example.homework21.screen.auth.sign_up.SignUpFragment"
         android:label="sign_up_fragment"
         tools:layout="@layout/sign_up_fragment" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.example.homework21.ui.splash_screen.SplashScreenFragment"
+        android:name="com.example.homework21.screen.splash_screen.SplashScreenFragment"
         android:label="splash_screen_fragment"
         tools:layout="@layout/splash_screen_fragment" >
         <action
@@ -52,8 +52,30 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.homework21.ui.home.HomeFragment"
+        android:name="com.example.homework21.screen.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_proofileFragment"
+            app:destination="@id/proofileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/proofileFragment"
+        android:name="com.example.homework21.screen.profile.ProfileFragment"
+        android:label="proofile_fragment"
+        tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.homework21.screen.Post.PostFragment"
+        android:label="post_fragment"
+        tools:layout="@layout/post_fragment" />
+
+    <action android:id="@+id/action_global_signInFragment"
+        app:destination="@id/signInFragment"
+        app:popUpTo="@id/navigation"
+        app:popUpToInclusive="true" />
 
 </navigation>
