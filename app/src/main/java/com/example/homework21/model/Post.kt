@@ -8,9 +8,11 @@ data class Post(
     val title:String?,
     val description:String?,
     val category_id:Int?,
-    val urls: List<String>?,
+    val urls: List<Url>?,
     val tags:String?,
     val price:Float?,
     @SerializedName("price_type")
     val priceType:String?
-)
+){
+    data class Url(val url:String?)
+}

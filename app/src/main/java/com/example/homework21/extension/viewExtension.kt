@@ -14,9 +14,16 @@ fun View.gone(){
     visibility = View.GONE
 }
 
+fun View.goneIf(isValid:Boolean){
+    if(isValid)
+        gone()
+    else
+        show()
+}
+
 fun View.showIf(isValid: Boolean) {
     if (isValid)
-        visibility = View.VISIBLE
+        show()
     else
-        visibility = View.INVISIBLE
+        hide()
 }
