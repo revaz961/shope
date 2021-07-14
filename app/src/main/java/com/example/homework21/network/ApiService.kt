@@ -25,7 +25,4 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String,
     ): Response<Login>
-
-    @GET("posts")
-    suspend fun getPosts():Response<List<Post>>
 }

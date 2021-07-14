@@ -3,14 +3,15 @@ package com.example.homework21.repository.post
 import com.example.homework21.model.ErrorResult
 import com.example.homework21.model.Post
 import com.example.homework21.network.ApiService
+import com.example.homework21.network.PostService
 import com.example.homework21.network.ResultHandler
 import com.google.gson.Gson
 import javax.inject.Inject
 
-class PostRepositoryImpl @Inject constructor(private val apiService: ApiService) : PostRepository {
+class PostRepositoryImpl @Inject constructor(private val postService: PostService) : PostRepository {
     override suspend fun getPost(): ResultHandler<List<Post>> {
         return try {
-            val response = apiService.getPosts()
+            val response = postService.getPosts()
             val body = response.body()
             if (response.isSuccessful)
                 ResultHandler.Success(body)

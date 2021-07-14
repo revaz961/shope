@@ -28,6 +28,13 @@ class AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build().create(ApiService::class.java)
 
+    @Provides
+    @Singleton
+    fun providePostService() = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build().create(PostService::class.java)
+
 
     @Provides
     @Singleton
@@ -36,6 +43,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providePostRepository(apiService: ApiService): PostRepository =
-        PostRepositoryImpl(apiService)
+    fun providePostRepository(postService: PostService): PostRepository =
+        PostRepositoryImpl(postService)
 }
