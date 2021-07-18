@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "355057443741",
+    "project_id": "shopapp-728a4",
+    "storage_bucket": "shopapp-728a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355057443741:android:a3afc96f4e6ccd12c20574",
+        "android_client_info": {
+          "package_name": "com.example.homework21"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355057443741-746hpcufmng9s85ejlnbjcq2ni787h21.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbBXAP4181ugtyq3x7ZHJYd6OFl6UkT0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355057443741-746hpcufmng9s85ejlnbjcq2ni787h21.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
