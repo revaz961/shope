@@ -1,5 +1,6 @@
 package com.example.homework21.repository.auth
 
+import com.example.homework21.model.ComplateProfileStatus
 import com.example.homework21.model.ErrorResult
 import com.example.homework21.model.Login
 import com.example.homework21.model.Register
@@ -7,6 +8,7 @@ import com.example.homework21.network.ApiService
 import com.example.homework21.network.ResultHandler
 import com.example.homework21.user_data.SessionData
 import com.google.gson.Gson
+import retrofit2.Response
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -56,4 +58,20 @@ class AuthRepositoryImpl @Inject constructor(
             ResultHandler.Error(null, e.message.toString())
         }
     }
+
+    override suspend fun completeProfile(id: String): ResultHandler<ComplateProfileStatus> {
+        return try {
+            val response = apiService.completeProfileStatus(id)
+            val body = response.body()
+            if (response.isSuccessful)
+                ResultHandler.Success(body)
+            else {
+                val errorResult = Gson().fromJson(response.errorBody()!!.string(), ErrorResult::class.java)
+                ResultHandler.Error(body, errorResult?.error ?: "something wrong")
+            }
+        } catch (e: Exception) {
+            ResultHandler.Error(null, e.message.toString())
+        }
+    }
+
 }

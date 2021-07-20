@@ -1,6 +1,7 @@
 package com.example.homework21.screen
 
 import android.Manifest
+import android.app.Dialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.example.homework21.databinding.ErrorDialogLayoutBinding
+import com.example.homework21.extension.init
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
@@ -39,6 +42,17 @@ abstract class BaseFragment<VB : ViewBinding>(
     }
 
     abstract fun start()
+
+    fun showErrorDialog(message:String){
+        val dialog = Dialog(requireContext())
+        val dialogBinding = ErrorDialogLayoutBinding.inflate(layoutInflater)
+        dialog.init(dialogBinding.root)
+        dialogBinding.tvDescription.text = message
+        dialogBinding.btnClose.setOnClickListener {
+            dialog.cancel()
+        }
+        dialog.show()
+    }
 
     fun hasCameraPermission() = ActivityCompat.checkSelfPermission(
         requireContext(),

@@ -5,7 +5,9 @@ import com.example.homework21.R
 import com.example.homework21.databinding.ProfileFragmentBinding
 import com.example.homework21.extension.setColorState
 import com.example.homework21.screen.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<ProfileFragmentBinding>(ProfileFragmentBinding::inflate) {
 
     private val viewModel:ProfileViewModel by viewModels()

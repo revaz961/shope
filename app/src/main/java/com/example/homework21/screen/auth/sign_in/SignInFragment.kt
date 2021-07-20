@@ -27,8 +27,8 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(
 
 
     private fun initView() {
-        val email = arguments?.getString("email","")
-        val password = arguments?.getString("password","")
+        val email = arguments?.getString("email", "")
+        val password = arguments?.getString("password", "")
         binding.titEmail.setText(email)
         binding.titPassword.setText(password)
 
@@ -95,19 +95,29 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(
         viewModel.loginLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is ResultHandler.Success -> {
-                    findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                     binding.progress.hide()
+                    viewModel.completeProfileStatus()
                 }
                 is ResultHandler.Error -> {
                     binding.progress.hide()
-                    val dialog = Dialog(requireContext())
-                    val dialogBinding = ErrorDialogLayoutBinding.inflate(layoutInflater)
-                    dialog.init(dialogBinding.root)
-                    dialogBinding.tvDescription.text = it.message
-                    dialogBinding.btnClose.setOnClickListener {
-                        dialog.cancel()
-                    }
-                    dialog.show()
+                    showErrorDialog(it.message)
+                }
+                is ResultHandler.Loading -> binding.progress.showIf(it.loading)
+            }
+        })
+
+        viewModel.profileLiveData.observe(viewLifecycleOwner, {
+            when (it) {
+                is ResultHandler.Success -> {
+                    binding.progress.hide()
+                    if (it.data!!.profileCompleted)
+                        findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
+                    else
+                        findNavController().navigate(R.id.action_signInFragment_to_proofileFragment)
+                }
+                is ResultHandler.Error -> {
+                    binding.progress.hide()
+                    showErrorDialog(it.message)
                 }
                 is ResultHandler.Loading -> binding.progress.showIf(it.loading)
             }
